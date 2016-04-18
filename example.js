@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 let adminClient = require('./');
 
@@ -19,5 +19,5 @@ adminClient(settings).
       });
   }).
   catch((err) => {
-    console.log("Error", err);
+    console.log('Error', err);
   });
