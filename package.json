@@ -6,6 +6,7 @@
   "scripts": {
     "test": "tape test/*-test.js",
     "lint": "jshint index.js lib/*.js test/*.js",
+    "prepublish": "./node_modules/nsp/bin/nsp check",
     "coverage": "./node_modules/.bin/istanbul cover tape -- test/*.js"
   },
   "keywords": [
@@ -36,6 +37,7 @@
   "devDependencies": {
     "istanbul": "^0.4.3",
     "jshint": "^2.9.1",
+    "nsp": "^2.3.0",
     "tape": "^4.5.1"
   }
 }
