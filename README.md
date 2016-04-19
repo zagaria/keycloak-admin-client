@@ -1,6 +1,6 @@
 ### Keycloak Admin Client
 
-https://travis-ci.org/bucharest-gold/keycloak-admin-client.svg?branch=master
+[![Build Status](https://travis-ci.org/bucharest-gold/keycloak-admin-client.svg?branch=master)](https://travis-ci.org/bucharest-gold/keycloak-admin-client)
 
 An _Extremely Experimental_ client for connecting to the Keycloak Admin REST API - http://keycloak.github.io/docs/rest-api/index.html
 
