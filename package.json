@@ -4,7 +4,9 @@
   "description": "Client for contacting the Keycloak Admin REST API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tape test/*-test.js",
+    "lint": "jshint index.js lib/*.js test/*.js",
+    "coverage": "./node_modules/.bin/istanbul cover tape -- test/*.js"
   },
   "keywords": [
     "Keycloak",
@@ -30,5 +32,10 @@
   ],
   "dependencies": {
     "request": "^2.69.0"
+  },
+  "devDependencies": {
+    "istanbul": "^0.4.3",
+    "jshint": "^2.9.1",
+    "tape": "^4.5.1"
   }
 }
