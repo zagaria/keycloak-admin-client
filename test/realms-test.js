@@ -148,3 +148,38 @@ test('Test delete a realm that doesn\'t exist', (t) => {
     });
   });
 });
+
+test('Test update a realm', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  // First we need to create a realm to update
+  // A minimal JSON representation of a realm,  just using the name property
+  const realmToAdd = {
+    realm: 'testRealmForUpdating'
+  };
+
+  kca.then((client) => {
+    client.importRealm(realmToAdd).then((addedRealm) => {
+      // just a quick quick that the realm is there
+      t.equal(addedRealm.realm, realmToAdd.realm, 'The realm should be named ' + realmToAdd.realm);
+      t.equal(addedRealm.enabled, false, 'initial enabled is false');
+
+      // Update a property in the realm we just created
+      addedRealm.enabled = true;
+      // Call the updateRealm api to update just the realm
+      client.updateRealm(realmToAdd.realm, addedRealm).then(() => {
+        // There is no return value on an update
+        // Get the realm we just updated to test
+        return client.realm(realmToAdd.realm);
+      }).then((realm) => {
+        t.equal(realm.enabled, addedRealm.enabled, 'the value we updated should\'ve been updated');
+
+        // clean up the realm we just added. This is only really needed when running tests locally.
+        // deleteRealm is tested later on
+        // TODO: find a better way
+        client.deleteRealm(realmToAdd.realm);
+        t.end();
+      });
+    });
+  });
+});
