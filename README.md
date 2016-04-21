@@ -6,6 +6,10 @@ An _Extremely Experimental_ client for connecting to the Keycloak Admin REST API
 
 The current RFC is located here: https://github.com/bucharest-gold/entente/blob/master/rfcs/keycloak-admin-rest-api-node-client.md
 
+## API Documentation
+
+http://bucharest-gold.github.io/keycloak-admin-client/
+
 ## Example
 
     'use strict';
