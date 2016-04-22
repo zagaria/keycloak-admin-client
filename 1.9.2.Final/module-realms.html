@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Module: keycloak-admin-client</title>
+	<title>Documentation Module: realms</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -63,7 +63,7 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Module: keycloak-admin-client</h1>
+	<h1 class="page-title">Module: realms</h1>
 <section>
 
 <header>
@@ -139,7 +139,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="keycloakAdminClient"><span class="type-signature"></span>keycloakAdminClient(settings)</h4>
+    <h4 class="name" id="~deleteRealm"><span class="type-signature">&lt;inner> </span>deleteRealm(realmName)</h4>
     
     
 </dt>
@@ -147,7 +147,7 @@
 
     
     <div class="description">
-        Creates a new Keycloak Admin client
+        A function to delete a realm for a client
     </div>
     
 
@@ -182,50 +182,7 @@
 
         <tr>
             
-                <td class="name"><code>settings</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">an object containing the settings
-                <h6 class="method-params-label method-subparams-label">Properties</h6>
-                
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>baseUrl</code></td>
+                <td class="name"><code>realmName</code></td>
             
 
             <td class="type">
@@ -242,110 +199,7 @@
 
             
 
-            <td class="description last">The baseurl for the Keycloak server - ex: http://localhost:8080/auth,</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>username</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The username to login to the keycloak server - ex: admin</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>password</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The password to login to the keycloak server - ex: *****</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>grant_type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the type of authentication mechanism - ex: password,</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>client_id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the id of the client that is registered with Keycloak to connect to - ex: admin-cli</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
+            <td class="description last">The name of the realm(not the realmID) to delete - ex: master,</td>
         </tr>
 
     
@@ -409,7 +263,7 @@
     
             
 <div class="param-desc">
-    A promise that will resolve with the client object.
+    A promise that resolves.
 </div>
 
 
@@ -433,20 +287,642 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">const adminClient = require(&#x27;keycloak-admin-client&#x27;);
-  const settings = {
-    baseUrl: &#x27;http://127.0.0.1:8080/auth&#x27;,
-    username: &#x27;admin&#x27;,
-    password: &#x27;admin&#x27;,
-    grant_type: &#x27;password&#x27;,
-    client_id: &#x27;admin-cli&#x27;
-  };
+    <pre class="sunlight-highlight-javascript">keycloakAdminClient(settings)
+    .then((client) =&gt; {
+      client.deleteRealm(realmName,)
+        .then(() =&gt; {
+          console.log(&#x27;success&#x27;);
+      });
+    });</pre>
 
-  adminClient(settings)
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="~importRealm"><span class="type-signature">&lt;inner> </span>importRealm(realm)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        A function to update a realm for a client
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>realm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The JSON representation of the realm to insert.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A promise that resolves with the JSON representation of the import realm.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">keycloakAdminClient(settings)
+    .then((client) =&gt; {
+      client.importRealm(realmName, realm)
+        .then((newRealm) =&gt; {
+          console.log(newRealm); //{...}
+      });
+    });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="~realm"><span class="type-signature">&lt;inner> </span>realm(realmName)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        A function to get 1 realm for a client
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>realmName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the realm(not the realmID) to find - ex: master</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A promise that will resolve with the realm object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">keycloakAdminClient(settings)
+    .then((client) =&gt; {
+      client.realm(realmName)
+        .then((realm) =&gt; {
+        console.log(realm) // {...}
+      });
+    });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="~realms"><span class="type-signature">&lt;inner> </span>realms()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        A function to get all the realms for a client
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A promise that will resolve with the Array of realm objects
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">keycloakAdminClient(settings)
     .then((client) =&gt; {
       client.realms()
-      ...
-      ...
+        .then((realms) =&gt; {
+        console.log(realms) // [{...},{...}, ...]
+      });
+    });</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="~updateRealm"><span class="type-signature">&lt;inner> </span>updateRealm(realmName, realm)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        A function to update a realm for a client
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>realmName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the realm(not the realmID) to update - ex: master,</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>realm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The JSON representation of the fields to update.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A promise that resolves.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">keycloakAdminClient(settings)
+    .then((client) =&gt; {
+      client.updateRealm(realmName, realm)
+        .then(() =&gt; {
+          console.log(&#x27;success&#x27;);
+      });
     });</pre>
 
 
