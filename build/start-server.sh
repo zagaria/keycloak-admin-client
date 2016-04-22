@@ -32,7 +32,7 @@ then
 fi
 
 # Start the server
-$KEYCLOAK/bin/standalone.sh -Djava.net.preferIPv4Stack=true > keycloak.log 2>&1 &
+$KEYCLOAK/bin/standalone.sh -Djava.net.preferIPv4Stack=true -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=build/kc-setup-for-tests.json -Dkeycloak.migration.strategy=OVERWRITE_EXISTING > keycloak.log 2>&1 &
 
 # Try to add an initial admin user, so we can test against
 # the server and not get automatically redirected.
