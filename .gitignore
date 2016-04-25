@@ -1,5 +1,6 @@
 keycloak*
 docs/
+.vscode
 
 # Logs
 logs
