@@ -149,3 +149,33 @@ test('Test update a users info - update a user that does not exist', (t) => {
     });
   });
 });
+
+test('Test delete a user', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  kca.then((client) => {
+    t.equal(typeof client.deleteUser, 'function', 'The client object returned should have a deleteUser function');
+
+    // Use the master realm
+    const realmName = 'Test Realm 1';
+    const userId = '677e99fd-b854-479f-afa6-74f295052770';
+
+    client.deleteUser(realmName, userId).then(() => {
+      t.end();
+    });
+  });
+});
+
+test('Test delete a user that doesn\'t exist', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  const userId = 'not-a-real-id';
+  const realmName = 'master';
+  kca.then((client) => {
+    // Call the deleteRealm api to remove this realm
+    client.deleteUser(realmName, userId).catch((err) => {
+      t.equal(err, 'User not found', 'Should return an error that no user is found');
+      t.end();
+    });
+  });
+});
