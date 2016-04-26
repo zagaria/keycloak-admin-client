@@ -45,3 +45,34 @@ test('Test getting the list of users for a Realm that doesn\'t exist', (t) => {
     });
   });
 });
+
+test('Test getting the one user for a Realm', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  kca.then((client) => {
+    // Use the master realm
+    const realmName = 'master';
+    const userId = 'f9ea108b-a748-435f-9058-dab46ce59771'; // This is the admin user id from /build/kc-setup-for-tests.json
+
+    client.user(realmName, userId).then((user) => {
+      t.equal(user.id, userId, 'The userId we used and the one returned should be the same');
+      t.equal(user.username, 'admin', 'The username returned should be admin');
+      t.end();
+    });
+  });
+});
+
+test('Test getting the one user for a Realm - userId doesn\'t exist', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  kca.then((client) => {
+    // Use the master realm
+    const realmName = 'master';
+    const userId = 'not-an-id';
+
+    client.user(realmName, userId).catch((err) => {
+      t.equal(err, 'User not found', 'A User not found error should be thrown');
+      t.end();
+    });
+  });
+});
