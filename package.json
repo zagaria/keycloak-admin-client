@@ -22,16 +22,15 @@
     "name": "Lucas Holmquist",
     "email": "lholmqui@redhat.com"
   },
+  "engines": {
+    "node": ">= 4.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "bucharest-gold/keycloak-admin-client"
   },
-  "licenses": [
-    {
-      "type": "Apache-2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0"
-    }
-  ],
+  "bugs": "https://github.com/bucharest-gold/keycloak-admin-client/issues",
+  "license": "Apache-2.0",
   "dependencies": {
     "request": "^2.69.0"
   },

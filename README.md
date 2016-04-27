@@ -4,8 +4,6 @@
 
 An _Extremely Experimental_ client for connecting to the Keycloak Admin REST API - http://keycloak.github.io/docs/rest-api/index.html
 
-The current RFC is located here: https://github.com/bucharest-gold/entente/blob/master/rfcs/keycloak-admin-rest-api-node-client.md
-
 ## API Documentation
 
 http://bucharest-gold.github.io/keycloak-admin-client/
@@ -49,3 +47,7 @@ Then just run the tests.
     make test
 
 To stop the server, run `./build/stop-server.sh`.
+
+### Other
+
+The current RFC is located here: https://github.com/bucharest-gold/entente/blob/master/rfcs/keycloak-admin-rest-api-node-client.md
