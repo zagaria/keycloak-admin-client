@@ -16,12 +16,12 @@ test('Test getting the list of clients for a Realm', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
-    t.equal(typeof client.clients, 'function', 'The client object returned should have a clients function');
+    t.equal(typeof client.clients.find, 'function', 'The client object returned should have a clients.find function');
 
     // Use the master realm
     const realmName = 'master';
 
-    client.clients(realmName).then((listOfClients) => {
+    client.clients.find(realmName).then((listOfClients) => {
       // The listOfCients should be an Array
       t.equal(listOfClients instanceof Array, true, 'the list of client should be an array');
 
@@ -39,7 +39,7 @@ test('Test getting the list of clients for a Realm that doesn\'t exist', (t) => 
     // Use the master realm
     const realmName = 'notarealrealm';
 
-    client.clients(realmName).catch((err) => {
+    client.clients.find(realmName).catch((err) => {
       t.equal(err, 'Realm not found.', 'Realm not found should be returned if the realm wasn\'t found');
       t.end();
     });
@@ -57,7 +57,7 @@ test('Test getting 1 client using query params for a Realm', (t) => {
       clientId: 'admin-cli'
     };
 
-    client.clients(realmName, options).then((listOfClients) => {
+    client.clients.find(realmName, options).then((listOfClients) => {
       // The listOfClients should be an Array
       t.equal(listOfClients instanceof Array, true, 'the list of clients should be an array');
       t.equal(listOfClients.length, 1, 'There should be 1 client with this clientId in master');
@@ -71,14 +71,12 @@ test('Test getting the one client for a Realm', (t) => {
 
   kca.then((client) => {
 
-    t.equal(typeof client.client, 'function', 'The client object returned should have a client function');
-
     // Use the master realm
     const realmName = 'master';
-    const clientId = '294193ca-3506-4fc9-9b33-cc9d25bd0ec7'; // This is the admin-cli client id from /build/kc-setup-for-tests.json
+    const id = '294193ca-3506-4fc9-9b33-cc9d25bd0ec7'; // This is the admin-cli client id from /build/kc-setup-for-tests.json
 
-    client.client(realmName, clientId).then((client) => {
-      t.equal(client.id, clientId, 'The client id we used and the one returned should be the same');
+    client.clients.find(realmName, {id: id}).then((client) => {
+      t.equal(client.id, id, 'The client id we used and the one returned should be the same');
       t.equal(client.clientId, 'admin-cli', 'The clientId returned should be admin-cli');
       t.end();
     });
@@ -91,9 +89,9 @@ test('Test getting the one client for a Realm - client id doesn\'t exist', (t) =
   kca.then((client) => {
     // Use the master realm
     const realmName = 'master';
-    const clientId = 'not-an-id';
+    const id = 'not-an-id';
 
-    client.client(realmName, clientId).catch((err) => {
+    client.clients.find(realmName, {id: id}).catch((err) => {
       t.equal(err, 'Could not find client', 'A Client not found error should be thrown');
       t.end();
     });
