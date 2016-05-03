@@ -48,6 +48,19 @@ Then just run the tests.
 
 To stop the server, run `./build/stop-server.sh`.
 
+
+### Notable Changes from 0.1.0 to 0.2.0
+
+The API has been chnaged to logically group up(namespace) functionailty.
+
+For example,  the 0.1.0 way of getting a list of all realms was by calling the `client.realms` function.
+
+Now in 0.2.0, you would do something like this: `client.realms.find`
+
+`find` can also be used to get 1 realm by passing in the realmName: `client.realms.find('master')`
+
+The other methods have been renamed too, for example, instead of calling `client.updateRealm` you would now call `client.realms.update`
+
 ### Other
 
 The current RFC is located here: https://github.com/bucharest-gold/entente/blob/master/rfcs/keycloak-admin-rest-api-node-client.md
