@@ -10,14 +10,13 @@ let settings = {
     client_id: 'admin-cli'
 };
 
-adminClient(settings).
-  then((client) => {
-    console.log('client', client);
-    client.realms().
-      then((realms) => {
+adminClient(settings)
+  .then((client) => {
+    client.realms.find()
+      .then((realms) => {
         console.log('realms', realms);
       });
-  }).
-  catch((err) => {
+  })
+  .catch((err) => {
     console.log('Error', err);
   });
