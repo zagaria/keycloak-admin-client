@@ -54,7 +54,7 @@ test('Top-Level Realm Test - wrong realm name should through an error', (t) => {
   });
 });
 
-test('Test import a realm - just using a realm name', (t) => {
+test('Test create a realm - just using a realm name', (t) => {
   const kca = keycloakAdminClient(settings);
 
   // A minimal JSON representation of a realm,  just using the name property
@@ -63,11 +63,11 @@ test('Test import a realm - just using a realm name', (t) => {
   };
 
   kca.then((client) => {
-    t.equal(typeof client.realms.import, 'function', 'The client object returned should have a import function');
+    t.equal(typeof client.realms.create, 'function', 'The client object returned should have a create function');
 
-    client.realms.import(realmToAdd).then((addedRealm) => {
-      // The .realms.import Endpoint does not return anything in the body.
-      // But our api "fakes it" by calling the client.realm(realm) function after a succesfull import.
+    client.realms.create(realmToAdd).then((addedRealm) => {
+      // The .realms.create Endpoint does not return anything in the body.
+      // But our api "fakes it" by calling the client.realm(realm) function after a succesfull create.
       t.equal(addedRealm.realm, realmToAdd.realm, 'The realm should be named ' + realmToAdd.realm);
 
       // clean up the realm we just added. This is only really needed when running tests locally.
@@ -79,7 +79,7 @@ test('Test import a realm - just using a realm name', (t) => {
   });
 });
 
-test('Test import a realm - a not unique name', (t) => {
+test('Test create a realm - a not unique name', (t) => {
   const kca = keycloakAdminClient(settings);
 
   // A minimal JSON representation of a realm,  just using the name property
@@ -88,7 +88,7 @@ test('Test import a realm - a not unique name', (t) => {
   };
 
   kca.then((client) => {
-    client.realms.import(realmToAdd).catch((err) => {
+    client.realms.create(realmToAdd).catch((err) => {
       t.equal(err.errorMessage, 'Realm with same name exists', 'Error message should be returned when using a non-unique realm name');
       t.end();
     });
@@ -105,7 +105,7 @@ test('Test delete a realm', (t) => {
   };
 
   kca.then((client) => {
-    client.realms.import(realmToAdd).then((addedRealm) => {
+    client.realms.create(realmToAdd).then((addedRealm) => {
       // just a quick quick that the realm is there
       t.equal(addedRealm.realm, realmToAdd.realm, 'The realm should be named ' + realmToAdd.realm);
 
@@ -145,7 +145,7 @@ test('Test update a realm', (t) => {
   };
 
   kca.then((client) => {
-    client.realms.import(realmToAdd).then((addedRealm) => {
+    client.realms.create(realmToAdd).then((addedRealm) => {
       // just a quick quick that the realm is there
       t.equal(addedRealm.realm, realmToAdd.realm, 'The realm should be named ' + realmToAdd.realm);
       t.equal(addedRealm.enabled, false, 'initial enabled is false');
