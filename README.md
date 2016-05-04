@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/bucharest-gold/keycloak-admin-client.svg?branch=master)](https://travis-ci.org/bucharest-gold/keycloak-admin-client)
 
+[![Coverage Status](https://coveralls.io/repos/github/lholmquist/keycloak-admin-client/badge.svg?branch=master)](https://coveralls.io/github/lholmquist/keycloak-admin-client?branch=master)
+
 An _Extremely Experimental_ client for connecting to the Keycloak Admin REST API - http://keycloak.github.io/docs/rest-api/index.html
 
 ## API Documentation
