@@ -25,7 +25,7 @@ http://bucharest-gold.github.io/keycloak-admin-client/
     adminClient(settings)
       .then((client) => {
         console.log('client', client);
-        client.find.realms()
+        client.realms.find()
           .then((realms) => {
             console.log('realms', realms);
           });
