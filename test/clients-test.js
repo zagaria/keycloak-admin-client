@@ -98,6 +98,45 @@ test('Test getting the one client for a Realm - client id doesn\'t exist', (t) =
   });
 });
 
+test('Test create a Client', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  kca.then((client) => {
+    t.equal(typeof client.clients.create, 'function', 'The client object returned should have a create function');
+
+    const realmName = 'Test Realm 1';
+    const newClient = {
+      clientId: 'test created client',
+      description: 'just a test',
+      bearerOnly: true
+    };
+
+    client.clients.create(realmName, newClient).then((addedClient) => {
+      t.equal(addedClient.clientId, newClient.clientId, 'The clientId should be named ' + newClient.clientId);
+      t.equal(addedClient.description, newClient.description, 'The description should be named ' + newClient.description);
+      t.end();
+    });
+  });
+});
+
+test('Test create a Client - a not unique clientId', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+   // Use the master realm
+    const realmName = 'master';
+    const newClient = {
+      clientId: 'admin-cli',
+      description: 'just a test'
+    };
+
+  kca.then((client) => {
+    client.clients.create(realmName, newClient).catch((err) => {
+      t.equal(err.errorMessage, 'Client admin-cli already exists', 'Error message should be returned when using a non-unique clientId');
+      t.end();
+    });
+  });
+});
+
 test('Test delete a client', (t) => {
   const kca = keycloakAdminClient(settings);
 
