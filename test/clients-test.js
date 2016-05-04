@@ -98,3 +98,32 @@ test('Test getting the one client for a Realm - client id doesn\'t exist', (t) =
   });
 });
 
+test('Test delete a client', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  kca.then((client) => {
+    t.equal(typeof client.clients.remove, 'function', 'The client object returned should have a remove function');
+
+    // Use the master realm
+    const realmName = 'Test Realm 1';
+    const id = 'd8c51041-84c7-4e76-901d-401e73eb1666';
+
+    client.clients.remove(realmName, id).then(() => {
+      t.end();
+    });
+  });
+});
+
+test('Test delete a client that doesn\'t exist', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  const id = 'not-a-real-id';
+  const realmName = 'master';
+  kca.then((client) => {
+    // Call the deleteRealm api to remove this realm
+    client.clients.remove(realmName, id).catch((err) => {
+      t.equal(err, 'Could not find client', 'Should return an error that no user is found');
+      t.end();
+    });
+  });
+});
