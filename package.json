@@ -36,6 +36,7 @@
     "request": "^2.69.0"
   },
   "devDependencies": {
+    "coveralls": "^2.11.9",
     "ink-docstrap": "^1.1.4",
     "istanbul": "^0.4.3",
     "jsdoc": "^3.4.0",
