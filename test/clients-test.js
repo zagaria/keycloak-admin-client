@@ -12,7 +12,7 @@ const settings = {
   client_id: 'admin-cli'
 };
 
-test('Test getting the list of clients for a Realm', (t) => {
+test.skip('Test getting the list of clients for a Realm', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -32,7 +32,7 @@ test('Test getting the list of clients for a Realm', (t) => {
   });
 });
 
-test('Test getting the list of clients for a Realm that doesn\'t exist', (t) => {
+test.skip('Test getting the list of clients for a Realm that doesn\'t exist', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -46,7 +46,7 @@ test('Test getting the list of clients for a Realm that doesn\'t exist', (t) => 
   });
 });
 
-test('Test getting 1 client using query params for a Realm', (t) => {
+test.skip('Test getting 1 client using query params for a Realm', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -66,7 +66,7 @@ test('Test getting 1 client using query params for a Realm', (t) => {
   });
 });
 
-test('Test getting the one client for a Realm', (t) => {
+test.skip('Test getting the one client for a Realm', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -83,7 +83,7 @@ test('Test getting the one client for a Realm', (t) => {
   });
 });
 
-test('Test getting the one client for a Realm - client id doesn\'t exist', (t) => {
+test.skip('Test getting the one client for a Realm - client id doesn\'t exist', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -98,7 +98,7 @@ test('Test getting the one client for a Realm - client id doesn\'t exist', (t) =
   });
 });
 
-test('Test create a Client', (t) => {
+test.skip('Test create a Client', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -119,7 +119,7 @@ test('Test create a Client', (t) => {
   });
 });
 
-test('Test create a Client - a not unique clientId', (t) => {
+test.skip('Test create a Client - a not unique clientId', (t) => {
   const kca = keycloakAdminClient(settings);
 
    // Use the master realm
@@ -137,7 +137,114 @@ test('Test create a Client - a not unique clientId', (t) => {
   });
 });
 
-test('Test delete a client', (t) => {
+test('Test update a client info', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  kca.then((client) => {
+    t.equal(typeof client.clients.update, 'function', 'The client object returned should have a update function');
+    // Use the Test Realm 1
+    const realmName = 'Test Realm 1';
+    const clientId = '38598d22-9592-4eec-819a-d6d91a6a1153';
+
+    let testRealm = kcSetupForTests.filter((r) => { return r.realm === realmName;})[0];
+    let orginalClient = testRealm.clients.filter((client) => { return client.id === clientId;})[0];  // This is the update me client from /build/kc-setup-for-tests.json
+    let testClient = Object.assign({}, orginalClient);
+
+    // just making sure we have the correct thing
+    t.equal(testClient.id, clientId, 'The client id should be the one we want');
+    t.equal(testClient.clientId, 'update me', 'The clientID returned should be update me');
+
+    // Update the test client
+    testClient.description = 'Update Description';
+
+    client.clients.update(realmName, testClient).then(() => {
+      // The update doesn't return anything so we need to go get what we just updated
+      return client.clients.find(realmName, {id: testClient.id});
+    }).then((c) => {
+      t.equal(c.description, testClient.description, 'The description returned should be the one we updated');
+      t.end();
+    });
+  });
+});
+
+
+test('Test update a client info - same client id error', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  kca.then((client) => {
+    // Use the Test Realm 1
+    const realmName = 'Test Realm 1';
+    const clientId = '38598d22-9592-4eec-819a-d6d91a6a1153';
+
+    let testRealm = kcSetupForTests.filter((r) => { return r.realm === realmName;})[0];
+    let orginalClient = testRealm.clients.filter((client) => { return client.id === clientId;})[0];  // This is the update me client from /build/kc-setup-for-tests.json
+    let testClient = Object.assign({}, orginalClient);
+
+    // just making sure we have the correct thing
+    t.equal(testClient.id, clientId, 'The client id should be the one we want');
+
+    // Change the client id to the use for duplicate clients id, this will create an error since it already exists
+    testClient.id = '09701f0c-db23-4b88-96d5-e35e4f766613';
+
+    client.clients.update(realmName, testClient).catch((err) => {
+      t.equal(err.errorMessage, 'Client update me already exists', 'Should return an error message');
+      t.end();
+    });
+  });
+});
+
+test('Test update a client info - same clientId(really the name of the client) error', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  kca.then((client) => {
+    // Use the Test Realm 1
+    const realmName = 'Test Realm 1';
+    const clientId = '38598d22-9592-4eec-819a-d6d91a6a1153';
+
+    let testRealm = kcSetupForTests.filter((r) => { return r.realm === realmName;})[0];
+    let orginalClient = testRealm.clients.filter((client) => { return client.id === clientId;})[0];  // This is the update me client from /build/kc-setup-for-tests.json
+    let testClient = Object.assign({}, orginalClient);
+
+    // just making sure we have the correct thing
+    t.equal(testClient.id, clientId, 'The client id should be the one we want');
+
+    // Change the client id to the use for duplicate clients id, this will create an error since it already exists
+    testClient.clientId = 'use for duplicate';
+
+    client.clients.update(realmName, testClient).catch((err) => {
+      t.equal(err.errorMessage, 'Client use for duplicate already exists', 'Should return an error message');
+      t.end();
+    });
+  });
+});
+
+test('Test update a client info - update a user that does not exist', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  kca.then((client) => {
+    // Use the Test Realm 1
+    const realmName = 'Test Realm 1';
+    const clientId = '38598d22-9592-4eec-819a-d6d91a6a1153';
+
+    let testRealm = kcSetupForTests.filter((r) => { return r.realm === realmName;})[0];
+    let orginalClient = testRealm.clients.filter((client) => { return client.id === clientId;})[0];  // This is the update me client from /build/kc-setup-for-tests.json
+    let testClient = Object.assign({}, orginalClient);
+
+    // just making sure we have the correct thing
+    t.equal(testClient.id, clientId, 'The client id should be the one we want');
+
+    // Change the user id to something that doesn't exist
+    testClient.id = 'f9ea108b-a748-435f-9058-dab46ce5977-not-real';
+
+    client.clients.update(realmName, testClient).catch((err) => {
+      console.log(err);
+      t.equal(err, 'Could not find client', 'Should return an error that no client is found');
+      t.end();
+    });
+  });
+});
+
+test.skip('Test delete a client', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -153,7 +260,7 @@ test('Test delete a client', (t) => {
   });
 });
 
-test('Test delete a client that doesn\'t exist', (t) => {
+test.skip('Test delete a client that doesn\'t exist', (t) => {
   const kca = keycloakAdminClient(settings);
 
   const id = 'not-a-real-id';
