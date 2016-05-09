@@ -12,7 +12,7 @@ const settings = {
   client_id: 'admin-cli'
 };
 
-test.skip('Test getting the list of clients for a Realm', (t) => {
+test('Test getting the list of clients for a Realm', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -32,7 +32,7 @@ test.skip('Test getting the list of clients for a Realm', (t) => {
   });
 });
 
-test.skip('Test getting the list of clients for a Realm that doesn\'t exist', (t) => {
+test('Test getting the list of clients for a Realm that doesn\'t exist', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -46,7 +46,7 @@ test.skip('Test getting the list of clients for a Realm that doesn\'t exist', (t
   });
 });
 
-test.skip('Test getting 1 client using query params for a Realm', (t) => {
+test('Test getting 1 client using query params for a Realm', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -66,7 +66,7 @@ test.skip('Test getting 1 client using query params for a Realm', (t) => {
   });
 });
 
-test.skip('Test getting the one client for a Realm', (t) => {
+test('Test getting the one client for a Realm', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -83,7 +83,7 @@ test.skip('Test getting the one client for a Realm', (t) => {
   });
 });
 
-test.skip('Test getting the one client for a Realm - client id doesn\'t exist', (t) => {
+test('Test getting the one client for a Realm - client id doesn\'t exist', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -98,7 +98,7 @@ test.skip('Test getting the one client for a Realm - client id doesn\'t exist', 
   });
 });
 
-test.skip('Test create a Client', (t) => {
+test('Test create a Client', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -119,7 +119,7 @@ test.skip('Test create a Client', (t) => {
   });
 });
 
-test.skip('Test create a Client - a not unique clientId', (t) => {
+test('Test create a Client - a not unique clientId', (t) => {
   const kca = keycloakAdminClient(settings);
 
    // Use the master realm
@@ -244,7 +244,7 @@ test('Test update a client info - update a user that does not exist', (t) => {
   });
 });
 
-test.skip('Test delete a client', (t) => {
+test('Test delete a client', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
@@ -260,7 +260,7 @@ test.skip('Test delete a client', (t) => {
   });
 });
 
-test.skip('Test delete a client that doesn\'t exist', (t) => {
+test('Test delete a client that doesn\'t exist', (t) => {
   const kca = keycloakAdminClient(settings);
 
   const id = 'not-a-real-id';
