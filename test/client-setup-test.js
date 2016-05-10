@@ -23,4 +23,22 @@ test('keycloakAdminClient should return a promise containing the client object',
   });
 });
 
+test('keycloakAdminClient failed login, wrong user creds', (t) => {
+  const settings = {
+    baseUrl: 'http://127.0.0.1:8080/auth',
+    username: 'admin',
+    password: 'wrongpassword',
+    grant_type: 'password',
+    client_id: 'admin-cli'
+  };
+
+  let kca = keycloakAdminClient(settings);
+
+  kca.catch((err) => {
+    t.equal(err.error_description, 'Invalid user credentials', 'error description should be invalid credentials');
+    t.equal(err.error, 'invalid_grant', 'error invalid_grant');
+    t.end();
+  });
+});
+
 
