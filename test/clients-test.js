@@ -26,7 +26,7 @@ test('Test getting the list of clients for a Realm', (t) => {
       t.equal(listOfClients instanceof Array, true, 'the list of client should be an array');
 
       // The list of client in the master realm should have 4 people
-      t.equal(listOfClients.length, 9, 'There should be 4 client in master');
+      t.equal(listOfClients.length, 10, 'There should be 4 client in master');
       t.end();
     });
   });
