@@ -41,4 +41,21 @@ test('keycloakAdminClient failed login, wrong user creds', (t) => {
   });
 });
 
+test('keycloakAdminClient should be able to log in successfully into another realms admin-cli', (t) => {
+  // You need to make sure to have a user with the correct roles and privileges for this to work
+  const settings = {
+    baseUrl: 'http://127.0.0.1:8080/auth',
+    username: 'admin',
+    password: 'admin',
+    realmName: 'other',
+    grant_type: 'password',
+    client_id: 'admin-cli'
+  };
 
+  let kca = keycloakAdminClient(settings);
+
+  t.equal(kca instanceof Promise, true, 'should return a Promise');
+  kca.then((client) => {
+    t.end();
+  });
+});
