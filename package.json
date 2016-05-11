@@ -33,6 +33,7 @@
   "bugs": "https://github.com/bucharest-gold/keycloak-admin-client/issues",
   "license": "Apache-2.0",
   "dependencies": {
+    "keycloak-request-token": "^0.1.0",
     "request": "^2.69.0"
   },
   "devDependencies": {
