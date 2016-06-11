@@ -1,1 +1,1 @@
-module.exports = require('./lib/keycloak-admin-client.js');
+module.exports = require('./lib/kc-admin-client.js');
