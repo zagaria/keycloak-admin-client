@@ -1,8 +1,7 @@
 'use strict';
 
-const test = require('tape'),
-  keycloakAdminClient = require('../index');
-
+const test = require('tape');
+const keycloakAdminClient = require('../index');
 
 test('keycloakAdminClient should return a promise containing the client object', (t) => {
   const settings = {

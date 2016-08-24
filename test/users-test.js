@@ -1,8 +1,8 @@
 'use strict';
 
-const test = require('tape'),
-  keycloakAdminClient = require('../index'),
-  kcSetupForTests = require('../build/kc-setup-for-tests.json');
+const test = require('tape');
+const keycloakAdminClient = require('../index');
+const kcSetupForTests = require('../build/kc-setup-for-tests.json');
 
 const settings = {
   baseUrl: 'http://127.0.0.1:8080/auth',
@@ -85,7 +85,9 @@ test('Test update a users info', (t) => {
     t.equal(typeof client.users.update, 'function', 'The client object returned should have a update function');
     // Use the master realm
     const realmName = 'master';
-    let testUser = Object.assign({}, kcSetupForTests[0].users.find((user) => { return user.id === '3ff724a6-90a8-4050-9981-4a6def74870a';})); // This is the test1 user id from /build/kc-setup-for-tests.json
+    let testUser = Object.assign({}, kcSetupForTests[0].users.find((user) => {
+      return user.id === '3ff724a6-90a8-4050-9981-4a6def74870a';
+    })); // This is the test1 user id from /build/kc-setup-for-tests.json
 
     // just making sure we have the correct thing
     t.equal(testUser.id, '3ff724a6-90a8-4050-9981-4a6def74870a', 'The userId should be the one we want');
@@ -106,14 +108,15 @@ test('Test update a users info', (t) => {
   });
 });
 
-
 test('Test update a users info - same username error', (t) => {
   const kca = keycloakAdminClient(settings);
 
   kca.then((client) => {
     // Use the master realm
     const realmName = 'master';
-    let testUser = Object.assign({}, kcSetupForTests[0].users.filter((user) => { return user.id === '3ff724a6-90a8-4050-9981-4a6def74870a';})[0]); // This is the test1 user id from /build/kc-setup-for-tests.json
+    let testUser = Object.assign({}, kcSetupForTests[0].users.filter((user) => {
+      return user.id === '3ff724a6-90a8-4050-9981-4a6def74870a';
+    })[0]); // This is the test1 user id from /build/kc-setup-for-tests.json
 
     // just making sure we have the correct thing
     t.equal(testUser.id, '3ff724a6-90a8-4050-9981-4a6def74870a', 'The userId should be the one we want');
@@ -134,7 +137,9 @@ test('Test update a users info - update a user that does not exist', (t) => {
   kca.then((client) => {
     // Use the master realm
     const realmName = 'master';
-    let testUser = Object.assign(kcSetupForTests[0].users.filter((user) => { return user.id === '3ff724a6-90a8-4050-9981-4a6def74870a';})[0]); // This is the test1 user id from /build/kc-setup-for-tests.json
+    let testUser = Object.assign(kcSetupForTests[0].users.filter((user) => {
+      return user.id === '3ff724a6-90a8-4050-9981-4a6def74870a';
+    })[0]); // This is the test1 user id from /build/kc-setup-for-tests.json
 
     // just making sure we have the correct thing
     t.equal(testUser.id, '3ff724a6-90a8-4050-9981-4a6def74870a', 'The userId should be the one we want');

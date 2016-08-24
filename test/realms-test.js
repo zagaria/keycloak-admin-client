@@ -1,7 +1,7 @@
 'use strict';
 
-const test = require('tape'),
-  keycloakAdminClient = require('../index');
+const test = require('tape');
+const keycloakAdminClient = require('../index');
 
 const settings = {
   baseUrl: 'http://127.0.0.1:8080/auth',
@@ -21,7 +21,7 @@ test('Test getting the list of Realms', (t) => {
       // The listOfRealms should be an Array
       t.equal(listOfRealms instanceof Array, true, 'the list of realms should be an array');
 
-      //There should be a master realm and it should be the first in the list.
+      // There should be a master realm and it should be the first in the list.
       t.equal(listOfRealms[0].realm, 'master', 'The realm should be named master');
       t.end();
     });
