@@ -4,11 +4,12 @@ language: node_js
 node_js:
   - "5"
 before_script:
-   - ./build/start-server.sh
+  - npm install -g szero
+  - ./build/start-server.sh
 script:
-   - make ci
+  - make ci
 after_script:
-   - ./build/stop-server.sh
+  - ./build/stop-server.sh
 notifications:
   irc: "irc.freenode.org#brass-monkey"
 branches:
