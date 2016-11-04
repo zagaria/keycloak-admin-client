@@ -1,10 +1,9 @@
-ci: lint
-	npm run coveralls
-	npm run docs
-
 test: lint
 	npm test
+
+ci: lint
 	npm run dependencyCheck
+	npm run docs
 
 lint: node_modules
 	npm run lint

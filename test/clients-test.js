@@ -2,7 +2,7 @@
 
 const test = require('tape');
 const keycloakAdminClient = require('../index');
-const kcSetupForTests = require('../build/kc-setup-for-tests.json');
+const kcSetupForTests = require('../scripts/kc-setup-for-tests.json');
 
 const settings = {
   baseUrl: 'http://127.0.0.1:8080/auth',
@@ -71,7 +71,7 @@ test('Test getting the one client for a Realm', (t) => {
   kca.then((client) => {
     // Use the master realm
     const realmName = 'master';
-    const id = '294193ca-3506-4fc9-9b33-cc9d25bd0ec7'; // This is the admin-cli client id from /build/kc-setup-for-tests.json
+    const id = '294193ca-3506-4fc9-9b33-cc9d25bd0ec7'; // This is the admin-cli client id from /scripts/kc-setup-for-tests.json
 
     client.clients.find(realmName, {id: id}).then((client) => {
       t.equal(client.id, id, 'The client id we used and the one returned should be the same');
@@ -149,7 +149,7 @@ test('Test update a client info', (t) => {
     })[0];
     let orginalClient = testRealm.clients.filter((client) => {
       return client.id === clientId;
-    })[0]; // This is the update me client from /build/kc-setup-for-tests.json
+    })[0]; // This is the update me client from /scripts/kc-setup-for-tests.json
     let testClient = Object.assign({}, orginalClient);
 
     // just making sure we have the correct thing
@@ -182,7 +182,7 @@ test('Test update a client info - same client id error', (t) => {
     })[0];
     let orginalClient = testRealm.clients.filter((client) => {
       return client.id === clientId;
-    })[0]; // This is the update me client from /build/kc-setup-for-tests.json
+    })[0]; // This is the update me client from /scripts/kc-setup-for-tests.json
     let testClient = Object.assign({}, orginalClient);
 
     // just making sure we have the correct thing
@@ -211,7 +211,7 @@ test('Test update a client info - same clientId(really the name of the client) e
     })[0];
     let orginalClient = testRealm.clients.filter((client) => {
       return client.id === clientId;
-    })[0]; // This is the update me client from /build/kc-setup-for-tests.json
+    })[0]; // This is the update me client from /scripts/kc-setup-for-tests.json
     let testClient = Object.assign({}, orginalClient);
 
     // just making sure we have the correct thing
@@ -240,7 +240,7 @@ test('Test update a client info - update a user that does not exist', (t) => {
     })[0];
     let orginalClient = testRealm.clients.filter((client) => {
       return client.id === clientId;
-    })[0]; // This is the update me client from /build/kc-setup-for-tests.json
+    })[0]; // This is the update me client from /scripts/kc-setup-for-tests.json
     let testClient = Object.assign({}, orginalClient);
 
     // just making sure we have the correct thing
