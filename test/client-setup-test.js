@@ -12,7 +12,7 @@ test('keycloakAdminClient should return a promise containing the client object',
     client_id: 'admin-cli'
   };
 
-  let kca = keycloakAdminClient(settings);
+  const kca = keycloakAdminClient(settings);
 
   t.equal(kca instanceof Promise, true, 'should return a Promise');
   kca.then((client) => {
@@ -31,7 +31,7 @@ test('keycloakAdminClient failed login, wrong user creds', (t) => {
     client_id: 'admin-cli'
   };
 
-  let kca = keycloakAdminClient(settings);
+  const kca = keycloakAdminClient(settings);
 
   kca.catch((err) => {
     t.equal(err.error_description, 'Invalid user credentials', 'error description should be invalid credentials');
@@ -51,7 +51,7 @@ test('keycloakAdminClient should be able to log in successfully into another rea
     client_id: 'admin-cli'
   };
 
-  let kca = keycloakAdminClient(settings);
+  const kca = keycloakAdminClient(settings);
 
   t.equal(kca instanceof Promise, true, 'should return a Promise');
   kca.then((client) => {

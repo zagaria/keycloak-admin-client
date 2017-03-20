@@ -1,5 +1,4 @@
-ci: lint
-	npm run coveralls
+ci: test
 	npm run docs
 
 test: lint
