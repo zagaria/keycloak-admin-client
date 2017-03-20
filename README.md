@@ -19,34 +19,37 @@ An _Extremely Experimental_ client for connecting to the Keycloak Admin REST API
 
 ## Installation
 
-    npm install keycloak-admin-client -S
+```
+npm install keycloak-admin-client -S
+```
 
 ## Usage
 
-    'use strict';
+```js
+'use strict';
 
-    let adminClient = require('./');
+let adminClient = require('./');
 
-    let settings = {
-        baseUrl: 'http://127.0.0.1:8080/auth',
-        username: 'admin',
-        password: 'admin',
-        grant_type: 'password',
-        client_id: 'admin-cli'
-    };
+let settings = {
+  baseUrl: 'http://127.0.0.1:8080/auth',
+  username: 'admin',
+  password: 'admin',
+  grant_type: 'password',
+  client_id: 'admin-cli'
+};
 
-    adminClient(settings)
-      .then((client) => {
-        console.log('client', client);
-        client.realms.find()
-          .then((realms) => {
-            console.log('realms', realms);
-          });
-      })
-      .catch((err) => {
-        console.log('Error', err);
-      });
-
+adminClient(settings)
+  .then((client) => {
+  console.log('client', client);
+  client.realms.find()
+    .then((realms) => {
+    console.log('realms', realms);
+    });
+  })
+  .catch((err) => {
+    console.log('Error', err);
+  });
+```
 
 ## Development & Testing
 
@@ -57,7 +60,9 @@ for you, start it, initialize the admin user, and then restart.
 
 Then just run the tests.
 
-    make test
+```
+make test
+```
 
 To stop the server, run `./build/stop-server.sh`.
 

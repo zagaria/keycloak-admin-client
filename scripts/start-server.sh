@@ -28,7 +28,7 @@ if [ ! -e $KEYCLOAK ]
 then
   wget $URL
   tar xzf $ARCHIVE
-  rm -f $ARCHIVE
+#  rm -f $ARCHIVE
 fi
 
 # Start the server

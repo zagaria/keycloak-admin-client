@@ -110,8 +110,8 @@ test('Test create a Client', (t) => {
     };
 
     client.clients.create(realmName, newClient).then((addedClient) => {
-      t.equal(addedClient.clientId, newClient.clientId, 'The clientId should be named ' + newClient.clientId);
-      t.equal(addedClient.description, newClient.description, 'The description should be named ' + newClient.description);
+      t.equal(addedClient.clientId, newClient.clientId, `The clientId should be named ${newClient.clientId}`);
+      t.equal(addedClient.description, newClient.description, `The description should be named ${newClient.description}`);
       t.end();
     });
   });
@@ -144,13 +144,13 @@ test('Test update a client info', (t) => {
     const realmName = 'Test Realm 1';
     const clientId = '38598d22-9592-4eec-819a-d6d91a6a1153';
 
-    let testRealm = kcSetupForTests.filter((r) => {
+    const testRealm = kcSetupForTests.filter((r) => {
       return r.realm === realmName;
     })[0];
-    let orginalClient = testRealm.clients.filter((client) => {
+    const orginalClient = testRealm.clients.filter((client) => {
       return client.id === clientId;
     })[0]; // This is the update me client from /scripts/kc-setup-for-tests.json
-    let testClient = Object.assign({}, orginalClient);
+    const testClient = Object.assign({}, orginalClient);
 
     // just making sure we have the correct thing
     t.equal(testClient.id, clientId, 'The client id should be the one we want');
@@ -177,13 +177,13 @@ test('Test update a client info - same client id error', (t) => {
     const realmName = 'Test Realm 1';
     const clientId = '38598d22-9592-4eec-819a-d6d91a6a1153';
 
-    let testRealm = kcSetupForTests.filter((r) => {
+    const testRealm = kcSetupForTests.filter((r) => {
       return r.realm === realmName;
     })[0];
-    let orginalClient = testRealm.clients.filter((client) => {
+    const orginalClient = testRealm.clients.filter((client) => {
       return client.id === clientId;
     })[0]; // This is the update me client from /scripts/kc-setup-for-tests.json
-    let testClient = Object.assign({}, orginalClient);
+    const testClient = Object.assign({}, orginalClient);
 
     // just making sure we have the correct thing
     t.equal(testClient.id, clientId, 'The client id should be the one we want');
@@ -206,13 +206,13 @@ test('Test update a client info - same clientId(really the name of the client) e
     const realmName = 'Test Realm 1';
     const clientId = '38598d22-9592-4eec-819a-d6d91a6a1153';
 
-    let testRealm = kcSetupForTests.filter((r) => {
+    const testRealm = kcSetupForTests.filter((r) => {
       return r.realm === realmName;
     })[0];
-    let orginalClient = testRealm.clients.filter((client) => {
+    const orginalClient = testRealm.clients.filter((client) => {
       return client.id === clientId;
     })[0]; // This is the update me client from /scripts/kc-setup-for-tests.json
-    let testClient = Object.assign({}, orginalClient);
+    const testClient = Object.assign({}, orginalClient);
 
     // just making sure we have the correct thing
     t.equal(testClient.id, clientId, 'The client id should be the one we want');
@@ -235,13 +235,13 @@ test('Test update a client info - update a user that does not exist', (t) => {
     const realmName = 'Test Realm 1';
     const clientId = '38598d22-9592-4eec-819a-d6d91a6a1153';
 
-    let testRealm = kcSetupForTests.filter((r) => {
+    const testRealm = kcSetupForTests.filter((r) => {
       return r.realm === realmName;
     })[0];
-    let orginalClient = testRealm.clients.filter((client) => {
+    const orginalClient = testRealm.clients.filter((client) => {
       return client.id === clientId;
     })[0]; // This is the update me client from /scripts/kc-setup-for-tests.json
-    let testClient = Object.assign({}, orginalClient);
+    const testClient = Object.assign({}, orginalClient);
 
     // just making sure we have the correct thing
     t.equal(testClient.id, clientId, 'The client id should be the one we want');
