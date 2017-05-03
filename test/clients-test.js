@@ -298,14 +298,16 @@ test("Test getting a client's roles", (t) => {
     const id = '379efc29-4b2e-403c-83b6-d9c9af43b24a'; // This is the master-realm client id from /scripts/kc-setup-for-tests.json
 
     return client.clients.roles.find(realmName, id).then((roles) => {
-      t.equal(roles.length, 12, 'Should return 12 roles');
+      t.equal(roles.length, 14, 'Should return 14 roles');
 
       const expectedRole = {
         id: 'a16e820e-ae47-4ac9-82ba-683c0b866994',
         name: 'manage-identity-providers',
         description: `\${role_manage-identity-providers}`,
         scopeParamRequired: false,
-        composite: false
+        composite: false,
+        clientRole: true,
+        containerId: '379efc29-4b2e-403c-83b6-d9c9af43b24a'
       };
       t.deepEqual(roles.find((r) => r.id === expectedRole.id), expectedRole, 'Should have the manage-identity-providers role');
     });
@@ -337,7 +339,9 @@ test("Test getting a client's role", (t) => {
         name: 'manage-identity-providers',
         description: `\${role_manage-identity-providers}`,
         scopeParamRequired: false,
-        composite: false
+        composite: false,
+        clientRole: true,
+        containerId: '379efc29-4b2e-403c-83b6-d9c9af43b24a'
       };
       t.deepEqual(role, expectedRole, 'Should return the manage-identity-providers role');
     });
