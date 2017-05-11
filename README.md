@@ -1,5 +1,7 @@
 ### Keycloak Admin Client
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bucharest-gold/keycloak-admin-client.svg)](https://greenkeeper.io/)
+
 [![Coverage Status](https://coveralls.io/repos/github/bucharest-gold/keycloak-admin-client/badge.svg)](https://coveralls.io/github/bucharest-gold/keycloak-admin-client)
 [![Build Status](https://travis-ci.org/bucharest-gold/keycloak-admin-client.svg?branch=master)](https://travis-ci.org/bucharest-gold/keycloak-admin-client)
 [![Known Vulnerabilities](https://snyk.io/test/npm/keycloak-admin-client/badge.svg)](https://snyk.io/test/npm/keycloak-admin-client)
