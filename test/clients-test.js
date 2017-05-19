@@ -420,3 +420,48 @@ test('Test create a client role - a non-unique role name', (t) => {
     });
   });
 });
+
+test('Test retrive an installation from existing client', (t) => {
+  const kca = keycloakAdminClient(settings);
+  return kca.then((client) => {
+    // Use the master realm
+    const realmName = 'master';
+    const options = {
+      clientId: 'admin-cli'
+    };
+
+    return client.clients.find(realmName, options).then((listOfClients) => {
+      client.clients.installation(realmName, listOfClients[0].id)
+        .then((installation) => {
+          return t.equal(installation.resource, listOfClients[0].clientId, `The resource should be named ${listOfClients[0].clientId}`);
+        });
+    });
+  });
+});
+
+test('Test retrive an installation from a client that does not exist', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  return kca.then((client) => {
+    // Use the master realm
+    const realmName = 'master';
+    const clientId = '58598d22-9592-4eec-819a-d6d91a6a1153';
+
+    return t.shouldFail(client.clients.installation(realmName, clientId), 'Could not find client', 'Should return an error that no client is found');
+  });
+});
+
+test('Test retrive an installation from a realm that does not exist', (t) => {
+  const kca = keycloakAdminClient(settings);
+  return kca.then((client) => {
+    // Use the master realm
+    const realmName = 'master';
+    const options = {
+      clientId: 'admin-cli'
+    };
+
+    return client.clients.find(realmName, options).then((listOfClients) => {
+      t.shouldFail(client.clients.installation('wrong-realm', listOfClients[0].id), 'Could not find client', 'Should return an error that no client is found');
+    });
+  });
+});
