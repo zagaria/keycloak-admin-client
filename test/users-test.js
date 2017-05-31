@@ -58,6 +58,35 @@ test('Test getting the one user for a Realm', (t) => {
   });
 });
 
+test('Test getting the users role mappins', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  return kca.then((client) => {
+    // Use the master realm
+    const realmName = 'master';
+    const userId = 'f9ea108b-a748-435f-9058-dab46ce59771'; // This is the admin user id from /scripts/kc-setup-for-tests.json
+
+    return client.users.roleMappings.find(realmName, userId).then((roleMappings) => {
+      t.equal(roleMappings.realmMappings[0].name, 'offline_access', 'Realm role "offline_access" should be present');
+      t.equal(roleMappings.realmMappings[1].name, 'admin', 'Realm role "admin" should be present');
+      t.equal(roleMappings.clientMappings.account.mappings[0].name, 'view-profile', 'Client role "view-profile" for client "account" should be present');
+      t.equal(roleMappings.clientMappings.account.mappings[1].name, 'manage-account', 'Client role "manage-account" for client "account" should be present');
+    });
+  });
+});
+
+test('Test getting the users role mappins - userId doesn\'t exist', (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  return kca.then((client) => {
+    // Use the master realm
+    const realmName = 'master';
+    const userId = 'not-an-id'; // This is the admin user id from /scripts/kc-setup-for-tests.json
+
+    return t.shouldFail(client.users.roleMappings.find(realmName, userId), 'User not found', 'A User not found error should be thrown');
+  });
+});
+
 test('Test getting the one user for a Realm - userId doesn\'t exist', (t) => {
   const kca = keycloakAdminClient(settings);
 
