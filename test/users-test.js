@@ -219,6 +219,68 @@ test('Test listing groups of user', (t) => {
   });
 });
 
+test("Test realm's role user assignment", (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  return kca.then((client) => {
+    t.equal(typeof client.realms.maps.map, 'function', 'The client object returned should have a realm role map function');
+
+    // Use the master realm
+    const realmName = 'master';
+    const userId = '3ff724a6-90a8-4050-9981-4a6def74870a';
+    const realmRoles = [{id: 'e2892f14-c143-4b65-a3d3-7014c6270d7b', name: 'offline_access'}];
+
+    return client.realms.maps.map(realmName, userId, realmRoles);
+  });
+});
+
+test("Test realm's role user unassignment", (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  return kca.then((client) => {
+    t.equal(typeof client.realms.maps.map, 'function', 'The client object returned should have a realm role unmap function');
+
+    // Use the master realm
+    const realmName = 'master';
+    const userId = '3ff724a6-90a8-4050-9981-4a6def74870a';
+    const realmRoles = [{id: 'e2892f14-c143-4b65-a3d3-7014c6270d7b', name: 'offline_access'}];
+
+    return client.realms.maps.unmap(realmName, userId, realmRoles);
+  });
+});
+
+test("Test client's role user assignment", (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  return kca.then((client) => {
+    t.equal(typeof client.clients.maps.map, 'function', 'The client object returned should have a client role map function');
+
+    // Use the master realm
+    const realmName = 'master';
+    const userId = '3ff724a6-90a8-4050-9981-4a6def74870a';
+    const clientId = '75ae84df-8541-4116-85a3-ed4a1ea154d6'; // "clientId" : "Test Realm 1-realm"
+    const clientRoles = [{id: '7371e2e3-fb68-482a-914b-d2dbd9a0a7ac', name: 'view-users'}];
+
+    return client.clients.maps.map(realmName, userId, clientId, clientRoles);
+  });
+});
+
+test("Test client's role user unassignment", (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  return kca.then((client) => {
+    t.equal(typeof client.clients.maps.unmap, 'function', 'The client object returned should have a client role unmap function');
+
+    // Use the master realm
+    const realmName = 'master';
+    const userId = '3ff724a6-90a8-4050-9981-4a6def74870a';
+    const clientId = '75ae84df-8541-4116-85a3-ed4a1ea154d6'; // "clientId" : "Test Realm 1-realm"
+    const clientRoles = [{id: '7371e2e3-fb68-482a-914b-d2dbd9a0a7ac', name: 'view-users'}];
+
+    return client.clients.maps.unmap(realmName, userId, clientId, clientRoles);
+  });
+});
+
 test('Test reset password of user', (t) => {
   const kca = keycloakAdminClient(settings);
 

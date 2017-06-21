@@ -153,3 +153,118 @@ test('Test update a realm', (t) => {
     });
   });
 });
+
+test("Test getting realm's roles", (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  return kca.then((client) => {
+    // Use the master realm
+    const realmName = 'master';
+
+    return client.realms.roles.find(realmName).then((roles) => {
+      t.equal(roles.length, 4, 'Should return 4 roles');
+
+      const expectedRole = {
+        id: 'e2892f14-c143-4b65-a3d3-7014c6270d7b',
+        name: 'offline_access',
+        description: `\${role_offline-access}`,
+        scopeParamRequired: true,
+        composite: false,
+        clientRole: false,
+        containerId: 'master'
+      };
+      t.deepEqual(roles.find((r) => r.id === expectedRole.id), expectedRole, 'Should have the offline_access role');
+    });
+  });
+});
+
+test("Test getting a realm's role", (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  return kca.then((client) => {
+    // Use the master realm
+    const realmName = 'master';
+    const roleName = 'offline_access';
+
+    return client.realms.roles.find(realmName, roleName).then((role) => {
+      const expectedRole = {
+        id: 'e2892f14-c143-4b65-a3d3-7014c6270d7b',
+        name: 'offline_access',
+        description: `\${role_offline-access}`,
+        scopeParamRequired: true,
+        composite: false,
+        clientRole: false,
+        containerId: 'master'
+      };
+      t.deepEqual(role, expectedRole, 'Should return the offline_access role');
+    });
+  });
+});
+
+test("Test getting a realms's role - realm doesn't exist", (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  const realmName = 'not-a-valid-realm';
+  const roleName = 'not-a-real-role-name';
+  return kca.then((client) => {
+    return t.shouldFail(client.realms.roles.find(realmName, roleName), 'Could not find realm', 'Should return an error that no realm is found');
+  });
+});
+
+test("Test getting a realms's role - role name doesn't exist", (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  const realmName = 'master';
+  const roleName = 'not-a-real-role-name';
+  return kca.then((client) => {
+    return t.shouldFail(client.realms.roles.find(realmName, roleName), 'Could not find role', 'Should return an error that no role is found');
+  });
+});
+
+test("Test create a realm's role", (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  return kca.then((client) => {
+    const realmName = 'master';
+    const newRole = {
+      name: 'my-new-role',
+      description: 'A new role'
+    };
+
+    return client.realms.roles.create(realmName, newRole).then((addedRole) => {
+      t.equal(addedRole.name, newRole.name, `The name should be named ${newRole.name}`);
+      t.equal(addedRole.description, newRole.description, `The description should be named ${newRole.description}`);
+    });
+  });
+});
+
+test("Test create a realm's role - realm doesn't exist", (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  return kca.then((client) => {
+    const realmName = 'not-a-valid-realm';
+    const newRole = {
+      name: 'my-new-role',
+      description: 'A new role'
+    };
+
+    return kca.then((client) => {
+      return t.shouldFail(client.realms.roles.create(realmName, newRole), 'Could not find realm', 'Should return an error that no realm is found');
+    });
+  });
+});
+
+test("Test create a realm's role - a non-unique role name", (t) => {
+  const kca = keycloakAdminClient(settings);
+
+  return kca.then((client) => {
+    const realmName = 'master';
+    const newRole = {
+      name: 'offline_access'
+    };
+
+    return kca.then((client) => {
+      return t.shouldFail(client.realms.roles.create(realmName, newRole), `Role ${newRole.name} already exists`, 'Error message should be returned when using a non-unique role name');
+    });
+  });
+});
