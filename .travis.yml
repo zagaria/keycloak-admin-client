@@ -17,6 +17,7 @@ notifications:
 branches:
   only:
     - master
+    - security-fix
     - /^greenkeeper/.*$/
 after_success:
   - npm run coverage
