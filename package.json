@@ -7,7 +7,7 @@
     "lint": "eslint lib/*.js test/*.js index.js example.js example-with-request.js",
     "test": "nyc tape test/*-test.js | tap-spec",
     "coverage": "nyc report --reporter=text-lcov > ./coverage/lcov.info",
-    "prepublish": "./node_modules/nsp/bin/nsp check",
+    "prepublishOnly": "npm audit",
     "docs": "./node_modules/.bin/jsdoc --verbose -d docs -t ./node_modules/ink-docstrap/template -R README.md index.js ./lib/*.js",
     "dependencyCheck": "szero . --ci --ignore keycloak"
   },
@@ -41,14 +41,14 @@
   "license": "Apache-2.0",
   "dependencies": {
     "keycloak-request-token": "^0.1.0",
-    "request": "^2.69.0"
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "blue-tape": "^1.0.0",
     "eslint": "^4.1.1",
     "eslint-config-semistandard": "^11.0.0",
     "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-node": "^5.0.0",
     "eslint-plugin-promise": "^3.3.0",
     "eslint-plugin-react": "^7.0.0",
