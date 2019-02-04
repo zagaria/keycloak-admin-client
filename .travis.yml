@@ -17,6 +17,7 @@ notifications:
 branches:
   only:
     - master
+    - ci_tests
     - /^greenkeeper/.*$/
 after_success:
   - npm run coverage
