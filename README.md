@@ -1,5 +1,9 @@
 ### Keycloak Admin Client
 
+This is a legacy package (fork original old keycloak admin client) for old systems! I used in lot of projects and need a copy, but strongly recommend do not use it!
+
+NPM package https://www.npmjs.com/package/@zagaria/keycloak-admin-client
+
 [![Greenkeeper badge](https://badges.greenkeeper.io/bucharest-gold/keycloak-admin-client.svg)](https://greenkeeper.io/)
 
 [![Coverage Status](https://coveralls.io/repos/github/bucharest-gold/keycloak-admin-client/badge.svg)](https://coveralls.io/github/bucharest-gold/keycloak-admin-client)
